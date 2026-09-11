@@ -10,13 +10,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - windows-2025
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macos-15-intel
+          - macos-26
         qt_ver:
           - 6.10.0
           - 6.11.0
           - 6.11.1
           - 6.11.2
         iqta_setup_py: ['true', 'false']
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Python
         if: ${{ matrix.iqta_setup_py == 'false' }}
