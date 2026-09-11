@@ -22,6 +22,7 @@ jobs:
           - 6.11.1
           - 6.11.2
         iqta_setup_py: ['true', 'false']
+        aqtsource: ['', 'git+https://github.com/miurahr/aqtinstall.git@16db45a70b5905ad596941b223469bc86a56901e']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Python
@@ -34,3 +35,4 @@ jobs:
         with:
           version: ${{ matrix.qt_ver }}
           setup-python: ${{ matrix.iqta_setup_py }}
+          aqtsource: ${{ matrix.aqtsource }}
