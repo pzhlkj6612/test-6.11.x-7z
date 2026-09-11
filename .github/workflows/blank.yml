@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        qt_ver:
+          - 6.10.0
+          - 6.11.0
+          - 6.11.1
+          - 6.11.2
+        iqta_setup_py: ['true', 'false']
+    runs-on: macos-latest
+    steps:
+      - name: Setup Python
+        if: ${{ matrix.iqta_setup_py == 'false' }}
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ matrix.qt_ver }}
+          setup-python: ${{ matrix.iqta_setup_py }}
